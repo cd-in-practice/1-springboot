@@ -8,6 +8,7 @@ app_pid_name: "{{springboot.app_name}}.pid"
 app_run_user: "{{ appuser.name }}"
 app_run_group: "{{ appuser.group }}"
 app_version: 1.0
+artifactory_basic_auth_header: "Basic YXBwOnBhc3N3b3Jk"
 app_artifact:
   url: "http://artifactory:8081/artifactory/pro-repo/codes/showme/springboot-demo/{{app_version}}/springboot-demo-{{app_version}}.jar"
   username: "app"

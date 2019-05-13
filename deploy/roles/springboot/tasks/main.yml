@@ -19,7 +19,7 @@
     force: true
     mode: "ug=rx,o=r"
     headers:
-      Authorization: Basic YXBwOnBhc3N3b3Jk
+      Authorization: "{{artifactory_basic_auth_header}}"
       # echo app:password | base64
     force_basic_auth: yes
   notify:
