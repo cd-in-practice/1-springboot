@@ -1,0 +1,9 @@
+---
+- name: "restart springboot service"
+  service:
+    name: "{{app_service_name}}.service"
+    state: restarted
+    enabled: yes
+    
+- name: reload systemctl daemon
+  command: systemctl daemon-reload

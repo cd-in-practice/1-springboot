@@ -1,0 +1,6 @@
+---
+- hosts: "springboot"
+  become: yes
+  roles:
+    - {"role": "ansible-role-java", "java_home": "{{JAVA_HOME}}"}
+    - springboot

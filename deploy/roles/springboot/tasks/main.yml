@@ -1,0 +1,51 @@
+---
+- name: mkdir  folder
+  file:
+    path: "{{item}}"
+    state: "directory"
+    owner: "{{app_run_user}}"
+    group: "{{app_run_group}}"
+    mode: "ug=rwx,o=rx"
+  with_items:
+    - "{{app_home_folder}}"
+    - "{{app_bin_folder}}"
+
+- name: Download file and force basic auth
+  get_url:
+    url: "{{app_artifact.url}}"
+    dest: "{{app_bin_folder}}/{{app_exe_jar_name}}"
+    owner: "{{app_run_user}}"
+    group: "{{app_run_group}}"
+    headers:
+      Authorization: Basic YXBwOnBhc3N3b3Jk
+      # echo app:password | base64
+    force_basic_auth: yes
+  notify:
+    - "restart springboot service"
+
+- name: config service
+  template:
+    src: "app-systemd.service"
+    dest: "/etc/systemd/system/{{app_service_name}}.service"
+    owner: "{{app_run_user}}"
+    group: "root"
+    mode: "ug=rwx,o=rx"
+    force: true
+  notify:
+    - "reload systemctl daemon"
+    - "restart springboot service"
+
+- name: Force handlers to run now
+  meta: flush_handlers
+
+- name: start service
+  become: yes
+  service:
+    name: "{{app_service_name}}.service"
+    enabled: true
+    state: started
+
+- name: Wait for port 7896 to become open on the host, don't start checking for 10 seconds
+  wait_for:
+    port: 7896
+    delay: 10

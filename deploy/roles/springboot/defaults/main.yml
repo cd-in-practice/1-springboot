@@ -1,0 +1,15 @@
+---
+app_name: "{{springboot.app_name}}"
+app_home_folder: "/app/{{springboot.app_name}}"
+app_bin_folder: "/app/{{springboot.app_name}}/bin"
+app_exe_jar_name: "{{springboot.app_name}}.jar"
+app_service_name: "{{springboot.app_name}}"
+app_pid_name: "{{springboot.app_name}}.pid"
+app_run_user: "{{ appuser.name }}"
+app_run_group: "{{ appuser.group }}"
+app_version: 1.0
+app_artifact:
+  url: "http://artifactory:8081/artifactory/pro-repo/codes/showme/springboot-demo/{{app_version}}/springboot-demo-{{app_version}}.jar"
+  username: "app"
+  password: "password"
+

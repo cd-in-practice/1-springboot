@@ -1,0 +1,15 @@
+[Unit]
+Description={{app_service_name}}
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+User={{app_run_user}}
+Group={{app_run_group}}
+Type=simple
+ExecStart={{JAVA_HOME}}/bin/java -jar  {{JAVA_JAR_OPS}}  {{app_bin_folder}}/{{app_exe_jar_name}}
+PIDFile={{app_bin_folder}}/{{app_pid_name}}
+ExecStop=/usr/bin/kill `/usr/bin/cat {{app_bin_folder}}/{{app_pid_name}}`
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
