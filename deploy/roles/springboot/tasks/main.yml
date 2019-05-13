@@ -16,6 +16,8 @@
     dest: "{{app_bin_folder}}/{{app_exe_jar_name}}"
     owner: "{{app_run_user}}"
     group: "{{app_run_group}}"
+    force: true
+    mode: "ug=rx,o=r"
     headers:
       Authorization: Basic YXBwOnBhc3N3b3Jk
       # echo app:password | base64
